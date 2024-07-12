@@ -1,25 +1,33 @@
-function generateArc(centerX, centerY, radius, startAngle, endAngle, linesPerDegree) {
-  // Calculate the number of segments based on the angle difference
-  const angleDiff = Math.abs(endAngle - startAngle);
-  const numSegments = Math.ceil(angleDiff / linesPerDegree); 
-  // Generate points along the arc
-  const points = [];
-  for (let i = 0; i <= numSegments; i++) {
-    const angle = startAngle + (angleDiff * i / numSegments);
-    const x = centerX + radius * Math.cos(angle * Math.PI / 180); // Convert degrees to radians
-    const y = centerY + radius * Math.sin(angle * Math.PI / 180); // Convert degrees to radians
-    points.push([x, y]);
+function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, radiusYMinus, startAngleDeg, endAngleDeg, precision) {
+  const startAngle = startAngleDeg * Math.PI / 180;
+  const endAngle = endAngleDeg * Math.PI / 180;
+
+  const deltaAngle = endAngle - startAngle;
+  const numPoints = Math.max(2, Math.ceil(deltaAngle / precision));
+  const angleStep = deltaAngle / (numPoints - 1);
+
+  const polylines = [];
+
+  for (let i = 0; i < numPoints; i++) {
+    const angle = startAngle + angleStep * i;
+
+    let radiusX = (angle > Math.PI / 2 && angle < 3 * Math.PI / 2) ? radiusXMinus : radiusXPlus;
+    let radiusY = (angle >= Math.PI && angle < 2 * Math.PI) ? radiusYMinus : radiusYPlus;
+
+    const x = centerX + radiusX * Math.cos(angle);
+    const y = centerY + radiusY * Math.sin(angle);
+
+    polylines.push([x, y]);
   }
 
-  return [points]; // Wrap in an array to match the polylines format expected by Blot drawLines
+  polylines.push(polylines[0]); // Close the shape
+
+  return polylines;
 }
 
-
 setDocDimensions(800, 600);
+// Example usage with separate radii
+const genPrecision = 0.000001;
+const arcPolylines = generateArcs(400, 300, 100, 100, 100, 100, 0, 360, genPrecision);
 
-
-//const  = generateArc(centerX, centerY, radius, startAngle, endAngle);
-const arcPolyLines = generateArc(400, 400, 100, 0, 360, 0.01);
-
-// Draw the arc
-drawLines(arcPolyLines);
+drawLines([arcPolylines]);
