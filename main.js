@@ -27,7 +27,6 @@ function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, 
 }
 
 setDocDimensions(125, 125);
-// Example usage with separate radii
 const genPrecision = 0.01;
 const head = generateArcs(65, 90, 32, 31, 33, 10, 0, 180, genPrecision, false);
 drawLines([head]);
