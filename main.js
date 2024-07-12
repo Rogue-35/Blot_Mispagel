@@ -29,13 +29,26 @@ function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, 
 setDocDimensions(125, 125);
 // Example usage with separate radii
 const genPrecision = 0.01;
-const head = generateArcs(65, 90, 32, 31, 27, 10, 0, 180, genPrecision, false);
+const head = generateArcs(65, 90, 32, 31, 33, 10, 0, 180, genPrecision, false);
 drawLines([head]);
-const aboveEarLeft = generateArcs(36, 90, 2, 2, 12, 12, 180, 245, genPrecision, false);
+const aboveEarLeft = generateArcs(36, 90, 2, 2, 12, 12, 180, 240, genPrecision, false);
 drawLines([aboveEarLeft]);
 const earLeft = generateArcs(32, 78, 3, 2.5, 6, 9, 0, 360, genPrecision, true);
 drawLines([earLeft])
-//const cheek = generateArcs(31.1, 74, ,,,
+const cheekLeft = generateArcs(36.5, 70, 0,3,0,20,180, 210, genPrecision, false);
+drawLines([cheekLeft]);
+const jawLeft = generateArcs(62.86, 70.4, 0,30,0,40,195, 270, genPrecision, false);
+drawLines([jawLeft]);
+const chin = generateArcs(66.85, 30.4, 4, 4, 0, .25, 180, 360, genPrecision, false);
+drawLines([chin]);
+const jawRight = generateArcs(70.85, 60.4, 25,0,0,30,270, 360, genPrecision, false);
+drawLines([jawRight]);
+const cheekRight = generateArcs(95.3, 70.225, 1, 0, 0, 12, 305, 360, genPrecision, false);
+drawLines([cheekRight]);
+const EarRight = generateArcs(97.75, 78, 2.5, 3, 6, 9, 0, 360, genPrecision, true);
+drawLines([EarRight]);
+const aboveEarRight = generateArcs(97, 80, .6, 2, 11.55, 12, 20, 60, genPrecision, false);
+drawLines([aboveEarRight]);
 // xpos ypos x+ x- y+ y- sAng eAng prec close
 
                              
