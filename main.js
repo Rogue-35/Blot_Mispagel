@@ -1,4 +1,4 @@
-function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, radiusYMinus, startAngleDeg, endAngleDeg, precision) {
+function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, radiusYMinus, startAngleDeg, endAngleDeg, precision, close) {
   const startAngle = startAngleDeg * Math.PI / 180;
   const endAngle = endAngleDeg * Math.PI / 180;
 
@@ -19,15 +19,23 @@ function generateArcs(centerX, centerY, radiusXPlus, radiusXMinus, radiusYPlus, 
 
     polylines.push([x, y]);
   }
-
+  if(close == true){
   polylines.push(polylines[0]); // Close the shape
-
+  }
+  
   return polylines;
 }
 
-setDocDimensions(800, 600);
+setDocDimensions(125, 125);
 // Example usage with separate radii
-const genPrecision = 0.000001;
-const arcPolylines = generateArcs(400, 300, 100, 100, 100, 100, 0, 360, genPrecision);
+const genPrecision = 0.01;
+const head = generateArcs(65, 90, 32, 31, 27, 10, 0, 180, genPrecision, false);
+drawLines([head]);
+const aboveEarLeft = generateArcs(36, 90, 2, 2, 12, 12, 180, 245, genPrecision, false);
+drawLines([aboveEarLeft]);
+const earLeft = generateArcs(32, 78, 3, 2.5, 6, 9, 0, 360, genPrecision, true);
+drawLines([earLeft])
+//const cheek = generateArcs(31.1, 74, ,,,
+// xpos ypos x+ x- y+ y- sAng eAng prec close
 
-drawLines([arcPolylines]);
+                             
